@@ -8,7 +8,7 @@ You need to have [1Password CLI](https://1password.com/downloads/command-line/) 
 
 ## Installation
 
-### Homebrew - Mac
+### [Homebrew](https://brew.sh/) - Mac
 
 Run
 
@@ -23,7 +23,7 @@ Or, run the followings if you would like to pull from Github master directly
 brew install --HEAD git-credential-1password
 ```
 
-### Scoop - Windows
+### [Scoop](https://scoop.sh/) - Windows
 
 Run
 
