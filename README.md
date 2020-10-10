@@ -8,7 +8,7 @@ You need to have [1Password CLI](https://1password.com/downloads/command-line/) 
 
 ## Installation
 
-### Homebrew
+### Homebrew - Mac
 
 Run
 
@@ -23,7 +23,14 @@ Or, run the followings if you would like to pull from Github master directly
 brew install --HEAD git-credential-1password
 ```
 
+### Scoop - Windows (Experimental)
 
+Run
+
+```powershell
+scoop bucket add git-credential-1password https://github.com/git-credential-1password/scoop-git-credential-1password.git
+scoop install git-credential-1password
+```
 
 ### Ad-hoc
 
