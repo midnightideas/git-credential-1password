@@ -8,7 +8,26 @@ You need to have [1Password CLI](https://1password.com/downloads/command-line/) 
 
 ## Installation
 
-Download [git-credential-1password](https://raw.githubusercontent.com/git-credential-1password/git-credential-1password/master/git-credential-1password) and put the file in a location within your `$PATH` environment variable, Git will recognise it's a credential helper.
+### Homebrew
+
+Run
+
+```bash
+brew tap git-credential-1password/git-credential-1password
+brew install git-credential-1password
+```
+
+Or, run the followings if you would like to pull from Github master directly
+
+```bash
+brew install --HEAD git-credential-1password
+```
+
+
+
+### Ad-hoc
+
+Download `git-credential-1password` from [Releases](https://github.com/git-credential-1password/git-credential-1password/releases) and put the file in a location within your `$PATH` environment variable, Git will recognise it's a credential helper.
 
 To verify, run the following commands, and you should see `credential-1password` being returned.
 
