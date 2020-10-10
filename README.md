@@ -8,7 +8,7 @@ You need to have [1Password CLI](https://1password.com/downloads/command-line/) 
 
 ## Installation
 
-Download `git-credential-1password` and put the file in a location within your `$PATH` environment variable, Git will recognise it's a credential helper.
+Download [git-credential-1password](https://raw.githubusercontent.com/git-credential-1password/git-credential-1password/master/git-credential-1password) and put the file in a location within your `$PATH` environment variable, Git will recognise it's a credential helper.
 
 To verify, run the following commands, and you should see `credential-1password` being returned.
 
