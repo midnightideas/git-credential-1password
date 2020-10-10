@@ -95,17 +95,3 @@ These would result in the following two entries in your global Git config.
 ```
 
 The Personal Access Token will be pulled from 1Password accordingly, based on the URL matching. You can find out more detail on how Git handles URL specific configuration at https://git-scm.com/docs/git-config#Documentation/git-config.txt-httplturlgt (search ` http.<url>.*` in this page if the archor does not work).
-
-## Session management
-
-The 1Password CLI does not provide any session management, other than keeping the session token in an environment variable.
-
-However, this method creates a challenge that we cannot access two different 1Password accounts within one terminal session, e.g., one personal 1Password account and one work 1Password account (which is one of the motivations of creating this helper).
-
-At the same time, I would like to avoid writing the session token into a static file within the file system, even though the session token will expire after 30 minutes of inactivity - see https://support.1password.com/command-line-getting-started/.
-
-In this solution, the 1Password session token is kept in the [Git Cache credential helper](https://git-scm.com/docs/git-credential-cache), which Git describes as the following:
-
-> This command caches credentials in memory for use by future Git programs. The stored credentials never touch the disk, and are forgotten after a configurable timeout. The cache is accessible over a Unix domain socket, restricted to the current user by filesystem permissions.
-
-This method seems to be the best compromise I have found so far. But if anybody has a better idea. I am happy to consider changing the behavior.
