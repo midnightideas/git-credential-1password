@@ -28,7 +28,8 @@ brew install --HEAD git-credential-1password
 Run
 
 ```powershell
-scoop bucket add git-credential-1password https://github.com/git-credential-1password/scoop-git-credential-1password.git
+scoop bucket add git-credential-1password `
+	https://github.com/git-credential-1password/scoop-git-credential-1password.git
 scoop install git-credential-1password
 ```
 
