@@ -42,7 +42,8 @@ git help -a | grep credential-
 Run 
 
 ```bash
-git config --global credential.helper "1password {1Password Sign-in URL} {1Password Item Name}"
+git config --global credential.helper \
+	"1password {1Password Sign-in URL} {1Password Item Name}"
 ```
 
 If you are using your own 1Password account, i.e., not managed by your company, your sign-in URL should be `my.1password.com` or the shorthand version `my` also works.
@@ -54,7 +55,8 @@ This sign-in URL parameter will be passed to 1Password CLI as the `--account` op
 The item name can be either the name or the UUID of the item, as supported by 1Password CLI. Don't forget that you may want to wrap the item name with quotes if the name contains space. For example:
 
 ```bash
-git config --global credential.helper "1password my 'My Github Personal Access Token'"
+git config --global credential.helper \
+	"1password my 'My Github Personal Access Token'"
 ```
 
 Your global Git config file `$HOME/.gitconfig` should result in the following section.
@@ -69,8 +71,10 @@ Your global Git config file `$HOME/.gitconfig` should result in the following se
 Sometimes, you may have multiple Github accounts for different purposes or multiple accounts across different Git hosting providers (Github, Bitbucket or Azure DevOps). To select the 1Password item correctly, you may choose to set up the credential helper using:
 
 ```bash
-git config --global credential.https://github.com/personalAccountName.helper "1password my 'My Github Personal Access Token'"
-git config --global credential.https://github.com/workAccountName.helper "1password my 'My Work Github Personal Access Token'"
+git config --global credential.https://github.com/personalAccountName.helper \
+	"1password my 'My Github Personal Access Token'"
+git config --global credential.https://github.com/workAccountName.helper \
+	"1password my 'My Work Github Personal Access Token'"
 ```
 
 These would result in the following two entries in your global Git config.
