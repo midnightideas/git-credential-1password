@@ -6,6 +6,8 @@ class GitCredential1password < Formula
   sha256 '$sha256'
   license 'MIT'
 
+  depends_on 'jq'
+
   def install
     bin.install 'git-credential-1password'
   end
