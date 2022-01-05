@@ -2,7 +2,7 @@
 
 This is a bash-only implementation of 1Password Git Credential Helper
 
-*Note - this tool was previously hosted under https://github.com/git-credential-1password/homebrew-git-credential-1password, and was available under the `git-credential-1password/git-credential-1password` tap. If you have used the previous version, please uninstall and untap first, and re-install this version.*
+*Note - this tool was previously hosted under https://github.com/git-credential-1password/git-credential-1password, and was available under the `git-credential-1password/git-credential-1password` tap. If you have used the previous version, please uninstall and untap first, and re-install this version.*
 
 ## Prerequisite
 
