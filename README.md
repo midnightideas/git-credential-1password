@@ -13,31 +13,23 @@ You need to have [1Password CLI](https://1password.com/downloads/command-line/) 
 Run
 
 ```bash
-brew tap git-credential-1password/git-credential-1password
+brew tap midnightideas/extras
 brew install git-credential-1password
 ```
 
-Or, run the followings if you would like to pull from Github master directly
-
-```bash
-brew install --HEAD git-credential-1password
-```
 
 ### [Scoop](https://scoop.sh/) - Windows
 
 Run
 
 ```powershell
-scoop bucket add git-credential-1password `
-	https://github.com/git-credential-1password/scoop-git-credential-1password.git
+scoop bucket add midnightideas-extras https://github.com/midnightideas/scoop-extras.git
 scoop install git-credential-1password
 ```
 
-Tips - if, for any reason, you are unable to run `scoop` commands, like `scoop update`, etc., in PowerShell or Command Prompt due to process/policy restriction. You may try running these commands in Git Bash instead.
-
 ### Ad-hoc
 
-Download `git-credential-1password` from [Releases](https://github.com/git-credential-1password/git-credential-1password/releases) and put the file in a location within your `$PATH` environment variable, Git will recognise it's a credential helper.
+Download `git-credential-1password` from [Releases](https://github.com/midnightideas/git-credential-1password/releases) and put the file in a location within your `$PATH` environment variable, Git will recognise it's a credential helper.
 
 To verify, run the following commands, and you should see `credential-1password` being returned.
 

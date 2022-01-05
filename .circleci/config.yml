@@ -1,0 +1,43 @@
+version: 2.1
+
+orbs:
+  slack: circleci/slack@4
+
+workflows:
+
+  deploy:
+    jobs:
+      - deploy:
+          context:
+            - slack
+
+jobs:
+
+  deploy:
+    machine: true
+    resource_class: midnightideas/outerman
+    steps:
+      - checkout
+      - run:
+          name: 'Reveal git secret'
+          command: 'git secret reveal -f'
+      - run:
+          name: 'Build dist'
+          command: './bin/build'
+      - run:
+          name: 'Create release in Github'
+          command: './bin/create-release'
+      - run:
+          name: 'Upload to server - Homebrew'
+          command: './bin/deploy-brew'
+      - run:
+          name: 'Upload to server - Scoop'
+          command: './bin/deploy-scoop'
+      - slack/notify:
+          event: fail
+          channel: cicd
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          channel: cicd
+          template: basic_success_1

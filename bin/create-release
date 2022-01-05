@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+base_dir="$(cd "$(dirname "$0")/.." && pwd)"
+
+function errout() {
+  message="$1"
+  echo "❌ $message"
+  exit 1
+}
+
+[[ -z "$CIRCLE_BRANCH" ]] && errout "\$CIRCLE_BRANCH is not defined".
+source "$base_dir"/data/"$CIRCLE_BRANCH"/env-build
+
+dist_dir="$base_dir"/dist
+
+echo "$github_token" | gh auth login -h 'github.com' --with-token
+
+version="$(cat "$base_dir"/VERSION)"
+tag="v$version"
+current_commit_sha="$(git rev-parse HEAD)"
+
+if gh release list | grep "$tag" >/dev/null; then
+  errout "$tag release has already been created. Please ./bin/increase-version first."
+else
+  gh release create \
+    --title "$tag" \
+    --target "$current_commit_sha" \
+    --generate-notes \
+    "$tag" "$dist_dir/$app_name-$tag.tar.gz"
+fi

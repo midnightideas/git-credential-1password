@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+base_dir="$(cd "$(dirname "$0")/.." && pwd)"
+
+function errout() {
+  message="$1"
+  echo "❌ $message"
+  exit 1
+}
+
+[[ -z "$CIRCLE_BRANCH" ]] && errout "\$CIRCLE_BRANCH is not defined".
+source "$base_dir"/data/"$CIRCLE_BRANCH"/env-build
+
+dist_dir="$base_dir"/dist
+
+temp_dir="$(mktemp -d)"
+
+pushd "$temp_dir" || exit 1
+
+git clone "$git_remote_brew" ./
+
+git config user.email "$git_email"
+git config user.name "$git_name"
+
+mkdir -p ./Formula
+cp "$dist_dir"/"$app_name".rb ./Formula/"$app_name".rb
+git add ./Formula/"$app_name".rb
+if ! git diff --cached --exit-code >/dev/null; then
+  git commit -m"Update $app_name"
+  git push
+fi
+
+popd || exit 1

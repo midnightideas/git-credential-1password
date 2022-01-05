@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+base_dir="$(cd "$(dirname "$0")/.." && pwd)"
+base_name="$(basename "$0")"
+
+increase_level="$1"
+
+version_file="$base_dir"/VERSION
+current_version="$(cat "$version_file")"
+
+case "$increase_level" in
+
+major | minor | patch | premajor | preminor | prepatch | prerelease)
+  new_version="$(semver -i "$increase_level" "$current_version")"
+  echo "Current version: $current_version"
+  echo "New version: $new_version"
+  echo "$new_version" > "$version_file"
+  ;;
+
+*)
+  echo "Usage: ./bin/$base_name major|minor|patch|premajor|preminor|prepatch|prerelease"
+  ;;
+
+esac

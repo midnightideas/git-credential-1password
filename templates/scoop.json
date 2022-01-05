@@ -1,0 +1,7 @@
+{
+  "version": "$version",
+  "url": "https://github.com/midnightideas/git-credential-1password/releases/download/$tag/git-credential-1password-$tag.tar.gz",
+  "hash": "$sha256",
+  "extract_dir": "git-credential-1password-$tag",
+  "env_add_path": "."
+}
