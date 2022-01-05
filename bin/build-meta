@@ -11,8 +11,6 @@ function errout() {
 [[ -z "$CIRCLE_BRANCH" ]] && errout "\$CIRCLE_BRANCH is not defined".
 source "$base_dir"/data/"$CIRCLE_BRANCH"/env-build
 
-source_url="https://github.com/midnightideas/git-credential-1password/releases/download/$tag/git-credential-1password-$tag.tar.gz"
-
 dist_dir="$base_dir"/dist
 
 templates_dir="$base_dir"/templates
@@ -20,7 +18,10 @@ templates_dir="$base_dir"/templates
 version="$(cat "$base_dir"/VERSION)"
 tag="v$version"
 
+source_url="https://github.com/midnightideas/git-credential-1password/releases/download/$tag/git-credential-1password-$tag.tar.gz"
+
 temp_dir="$(mktemp -d)"
+echo "Source URL: $source_url"
 wget -q "$source_url" -O "$temp_dir"/"$app_name".tar.gz
 sha256="$(sha256sum "$temp_dir"/"$app_name".tar.gz | awk '{ print $1 }')"
 rm -rf "$temp_dir"
