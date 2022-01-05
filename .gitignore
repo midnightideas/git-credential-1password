@@ -3,3 +3,4 @@
 !*.secret
 data/main/env-build
 dist
+tmp
