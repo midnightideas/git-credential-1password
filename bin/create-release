@@ -2,12 +2,6 @@
 
 base_dir="$(cd "$(dirname "$0")/.." && pwd)"
 
-function errout() {
-  message="$1"
-  echo "❌ $message"
-  exit 1
-}
-
 [[ -z "$CIRCLE_BRANCH" ]] && errout "\$CIRCLE_BRANCH is not defined".
 source "$base_dir"/data/"$CIRCLE_BRANCH"/env-build
 
@@ -20,7 +14,7 @@ tag="v$version"
 current_commit_sha="$(git rev-parse HEAD)"
 
 if gh release list | grep "$tag" >/dev/null; then
-  errout "$tag release has already been created. Please ./bin/increase-version first."
+  echo "$tag release has already been created. Skipping release."
 else
   gh release create \
     --title "$tag" \

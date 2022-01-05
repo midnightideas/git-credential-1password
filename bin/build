@@ -16,13 +16,8 @@ dist_dir="$base_dir"/dist
 [[ -e "$dist_dir" ]] && rm -rf "$dist_dir"
 mkdir -p "$dist_dir"
 
-templates_dir="$base_dir"/templates
-
 version="$(cat "$base_dir"/VERSION)"
 tag="v$version"
-
-[[ -e "$dist_dir" ]] && rm -rf "$dist_dir"
-mkdir -p "$dist_dir"
 
 temp_dir="$(mktemp -d)"
 cp -R "$base_dir"/src/. "$temp_dir"/
@@ -33,13 +28,3 @@ tar cvzf "$dist_dir"/"$app_name-$tag.tar.gz" .
 popd || exit 1
 
 rm -rf "$temp_dir"
-
-sha256="$(sha256sum "$dist_dir"/"$app_name-$tag.tar.gz" | awk '{ print $1 }')"
-
-sed 's/$tag/'${tag//\//\\\/}'/g;s/$sha256/'${sha256//\//\\\/}'/g' \
-  <"$templates_dir"/brew.rb \
-  >"$dist_dir"/"$app_name".rb
-
-sed 's/$tag/'${tag//\//\\\/}'/g;s/$version/'${version//\//\\\/}'/g;s/$sha256/'${sha256//\//\\\/}'/g' \
-  <"$templates_dir"/scoop.json \
-  >"$dist_dir"/"$app_name".json

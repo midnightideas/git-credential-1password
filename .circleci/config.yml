@@ -28,6 +28,9 @@ jobs:
           name: 'Create release in Github'
           command: './bin/create-release'
       - run:
+          name: 'Build formula or manifest'
+          command: './bin/build-meta'
+      - run:
           name: 'Upload to server - Homebrew'
           command: './bin/deploy-brew'
       - run:

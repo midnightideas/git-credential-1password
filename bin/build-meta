@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+base_dir="$(cd "$(dirname "$0")/.." && pwd)"
+
+function errout() {
+  message="$1"
+  echo "❌ $message"
+  exit 1
+}
+
+[[ -z "$CIRCLE_BRANCH" ]] && errout "\$CIRCLE_BRANCH is not defined".
+source "$base_dir"/data/"$CIRCLE_BRANCH"/env-build
+
+source_url="https://github.com/midnightideas/git-credential-1password/releases/download/$tag/git-credential-1password-$tag.tar.gz"
+
+dist_dir="$base_dir"/dist
+
+templates_dir="$base_dir"/templates
+
+version="$(cat "$base_dir"/VERSION)"
+tag="v$version"
+
+temp_dir="$(mktemp -d)"
+wget -q "$source_url" -O "$temp_dir"/"$app_name".tar.gz
+sha256="$(sha256sum "$temp_dir"/"$app_name".tar.gz | awk '{ print $1 }')"
+rm -rf "$temp_dir"
+echo "SHA256: $sha256"
+rm -rf "$temp_dir"
+
+sed 's/$tag/'${tag//\//\\\/}'/g;s/$sha256/'${sha256//\//\\\/}'/g' \
+  <"$templates_dir"/brew.rb \
+  >"$dist_dir"/"$app_name".rb
+
+sed 's/$tag/'${tag//\//\\\/}'/g;s/$version/'${version//\//\\\/}'/g;s/$sha256/'${sha256//\//\\\/}'/g' \
+  <"$templates_dir"/scoop.json \
+  >"$dist_dir"/"$app_name".json
