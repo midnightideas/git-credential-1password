@@ -31,10 +31,10 @@ jobs:
           name: 'Build formula or manifest'
           command: './bin/build-meta'
       - run:
-          name: 'Upload to server - Homebrew'
+          name: 'Commit to Github - Homebrew'
           command: './bin/deploy-brew'
       - run:
-          name: 'Upload to server - Scoop'
+          name: 'Commit to Github - Scoop'
           command: './bin/deploy-scoop'
       - slack/notify:
           event: fail
