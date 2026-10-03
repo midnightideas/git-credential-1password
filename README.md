@@ -1,3 +1,5 @@
+[![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/midnightideas/git-credential-1password)
+
 # 1Password Git Credential Helper
 
 This is a bash-only implementation of 1Password Git Credential Helper
