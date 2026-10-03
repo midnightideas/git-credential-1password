@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# push-template: sync this repo's .devcontainer into kafilios/devcontainer-template.
+# Override the target with DEVCONTAINER_TEMPLATE_REPO=<git-url>.
+
+set -euo pipefail
+
+REPO_URL="${DEVCONTAINER_TEMPLATE_REPO:-https://github.com/kafilios/devcontainer-template}"
+REPO_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../.." && pwd)"
+
+log() { echo "[$1] ${*:2}" >&2; }
+
+if ! command -v git &>/dev/null; then
+    log ERROR "git is required but not installed or not in PATH."
+    exit 1
+fi
+
+if [ ! -d "$REPO_DIR/.devcontainer" ]; then
+    log ERROR "Source .devcontainer not found at $REPO_DIR/.devcontainer."
+    exit 1
+fi
+
+WORK_DIR="$(mktemp -d -t push-template.XXXXXXXXXX)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+log INFO "Cloning $REPO_URL (depth 1) into $WORK_DIR ..."
+git clone --depth 1 "$REPO_URL" "$WORK_DIR/repo"
+
+log INFO "Replacing .devcontainer ..."
+rm -rf "$WORK_DIR/repo/.devcontainer"
+cp -r "$REPO_DIR/.devcontainer" "$WORK_DIR/repo/.devcontainer"
+
+cd "$WORK_DIR/repo"
+
+log INFO "Staging .devcontainer ..."
+git add .devcontainer
+
+if git diff --cached --quiet; then
+    log INFO "No changes to commit; nothing to push."
+    exit 0
+fi
+
+log INFO "Committing ..."
+git commit -m "chore(devcontainer): sync .devcontainer from dotfiles-devcontainer"
+
+log INFO "Pushing ..."
+git push
+
+log INFO "Done."
